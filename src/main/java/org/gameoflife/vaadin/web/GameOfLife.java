@@ -1,8 +1,6 @@
 package org.gameoflife.vaadin.web;
 
 import com.vaadin.Application;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.Window;
 import org.gameoflife.vaadin.domain.Universe;
@@ -28,19 +26,7 @@ public class GameOfLife extends Application {
 
         refreshCanvas();
         universe.tick();
-
-        // Add a button for starting background work
-        getMainWindow().addComponent(
-                new Button("Do stuff in the background", new Button.ClickListener() {
-
-                    public void buttonClick(Button.ClickEvent event) {
-                        getMainWindow()
-                                .addComponent(
-                                        new Label(
-                                                "Waiting for background process to complete..."));
-                        new BackgroundThread().start();
-                    }
-                }));
+        new BackgroundThread().start();
     }
 
 
