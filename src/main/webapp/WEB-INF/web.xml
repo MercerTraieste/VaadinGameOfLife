@@ -4,16 +4,22 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          id="WebApp_ID" version="2.5">
     <display-name>org.gameoflife.vaadin.web.GameOfLife</display-name>
+
+
     <servlet>
-        <servlet-name>SimpleAddressBook</servlet-name>
-        <servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
+        <servlet-name>Game of Life</servlet-name>
+        <servlet-class>org.vaadin.artur.icepush.ICEPushServlet</servlet-class>
         <init-param>
             <param-name>application</param-name>
             <param-value>org.gameoflife.vaadin.web.GameOfLife</param-value>
         </init-param>
+        <init-param>
+            <param-name>widgetset</param-name>
+            <param-value>org.gameoflife.vaadin.web.MyAppWidgetSet</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>SimpleAddressBook</servlet-name>
+        <servlet-name>Game of Life</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -1,39 +1,74 @@
 package org.gameoflife.vaadin.web;
 
 import com.vaadin.Application;
-import com.vaadin.ui.SplitPanel;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.TextArea;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import org.gameoflife.vaadin.domain.Universe;
+import org.vaadin.artur.icepush.ICEPush;
 
 public class GameOfLife extends Application {
 
     private TextArea canvas = new TextArea();
-    private TextArea metadata = new TextArea();
+    private Universe universe = new Universe();
+    private ICEPush pusher = new ICEPush();
 
     @Override
     public void init() {
-        initLayout();
+        Window mainWindow = new Window("Icepushaddon Application");
+        setMainWindow(mainWindow);
+
+        // Add the push component
+        mainWindow.addComponent(pusher);
+        mainWindow.addComponent(canvas);
+
+        canvas.setColumns(60);
+        canvas.setRows(60);
+
+        refreshCanvas();
+        universe.tick();
+
+        // Add a button for starting background work
+        getMainWindow().addComponent(
+                new Button("Do stuff in the background", new Button.ClickListener() {
+
+                    public void buttonClick(Button.ClickEvent event) {
+                        getMainWindow()
+                                .addComponent(
+                                        new Label(
+                                                "Waiting for background process to complete..."));
+                        new BackgroundThread().start();
+                    }
+                }));
     }
 
-    private void initLayout() {
-        SplitPanel splitPanel = new SplitPanel(SplitPanel.ORIENTATION_HORIZONTAL);
-        setMainWindow(new Window("Address Book", splitPanel));
-        VerticalLayout left = new VerticalLayout();
-        left.setSizeFull();
-        canvas.setRows(100);
-        canvas.setColumns(100);
-        canvas.setReadOnly(true);
-        left.addComponent(canvas);
-        splitPanel.addComponent(left);
 
-        VerticalLayout right = new VerticalLayout();
-        right.setSizeFull();
-        metadata.setRows(100);
-        metadata.setColumns(100);
-        metadata.setReadOnly(true);
-        right.addComponent(metadata);
-        splitPanel.addComponent(right);
+    public class BackgroundThread extends Thread {
+
+        @Override
+        public void run() {
+            // Simulate background work
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+            }
+
+            // Update UI
+            synchronized (GameOfLife.this) {
+                refreshCanvas();
+            }
+
+            // Push the changes
+            pusher.push();
+        }
+
+    }
+
+    private void refreshCanvas() {
+        canvas.setReadOnly(false);
+        canvas.setValue(universe.toString());
+        canvas.setReadOnly(true);
     }
 
 }
