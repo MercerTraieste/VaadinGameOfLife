@@ -6,7 +6,8 @@
 
     <groupId>VaadinGameOfLife</groupId>
     <artifactId>VaadinGameOfLife</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
@@ -20,4 +21,18 @@
             <version>6.7.2</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>tomcat-maven-plugin</artifactId>
+                <version>1.1</version>
+                <configuration>
+                    <path>/${project.artifactId}</path>
+                    <port>9001</port>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
