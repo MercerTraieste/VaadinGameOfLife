@@ -7,7 +7,7 @@ import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 
-public class SimpleAddressBook extends Application {
+public class GameOfLife extends Application {
 
     private static String[] fields = {"First Name", "Last Name", "Company",
             "Mobile Phone", "Work Phone", "Home Phone", "Work Email",

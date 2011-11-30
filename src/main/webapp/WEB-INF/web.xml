@@ -3,13 +3,13 @@
          xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          id="WebApp_ID" version="2.5">
-    <display-name>org.gameoflife.vaadin.web.SimpleAddressBook</display-name>
+    <display-name>org.gameoflife.vaadin.web.GameOfLife</display-name>
     <servlet>
         <servlet-name>SimpleAddressBook</servlet-name>
         <servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
         <init-param>
             <param-name>application</param-name>
-            <param-value>org.gameoflife.vaadin.web.SimpleAddressBook</param-value>
+            <param-value>org.gameoflife.vaadin.web.GameOfLife</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
