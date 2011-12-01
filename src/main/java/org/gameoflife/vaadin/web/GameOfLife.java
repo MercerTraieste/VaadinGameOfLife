@@ -11,7 +11,7 @@ public class GameOfLife extends Application {
     private TextArea canvas = new TextArea();
     private Universe universe = new Universe();
     private ICEPush pusher = new ICEPush();
-    private static final int ROUNDS = 100;
+    private static final int ROUNDS = 500;
 
     @Override
     public void init() {
@@ -23,6 +23,7 @@ public class GameOfLife extends Application {
 
         canvas.setColumns(60);
         canvas.setRows(60);
+        refreshCanvas();
 
         new BackgroundThread().start();
     }
