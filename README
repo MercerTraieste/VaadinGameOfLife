@@ -1,0 +1,3 @@
+HOW TO RUN
+mvn package tomcat:run-war
+go to http://localhost:9001/VaadinGameOfLife
