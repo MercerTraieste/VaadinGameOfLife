@@ -3,11 +3,11 @@ package org.gameoflife.vaadin.domain;
 public class Universe {
     private static final int width = 50;
     private static final int height = 50;
+    private boolean isStarted = false;
     private boolean[][] cells;
 
     public Universe() {
         cells = new boolean[width][height];
-        cells = init();
     }
 
     private boolean[][] init() {
@@ -25,15 +25,20 @@ public class Universe {
     }
 
     public void tick() {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                cells[x][y] = isAlive(x, y);
+        if (!isStarted) {
+            cells = init();
+            isStarted = true;
+        } else {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    cells[x][y] = isAlive(x, y);
+                }
             }
         }
     }
 
     private boolean isAlive(int x, int y) {
-        return false;
+        return !cells[x][y];
     }
 
     private boolean[][] initDiagonal() {

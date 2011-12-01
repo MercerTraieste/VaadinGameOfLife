@@ -11,44 +11,39 @@ public class GameOfLife extends Application {
     private TextArea canvas = new TextArea();
     private Universe universe = new Universe();
     private ICEPush pusher = new ICEPush();
+    private static final int ROUNDS = 100;
 
     @Override
     public void init() {
-        Window mainWindow = new Window("Icepushaddon Application");
+        Window mainWindow = new Window("Game of Life");
         setMainWindow(mainWindow);
 
-        // Add the push component
         mainWindow.addComponent(pusher);
         mainWindow.addComponent(canvas);
 
         canvas.setColumns(60);
         canvas.setRows(60);
 
-        refreshCanvas();
-        universe.tick();
         new BackgroundThread().start();
     }
-
 
     public class BackgroundThread extends Thread {
 
         @Override
         public void run() {
-            // Simulate background work
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
+            for (int i = 0; i < ROUNDS; i++) {
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException("Universe blew up", e);
+                }
+                synchronized (GameOfLife.this) {
+                    universe.tick();
+                    refreshCanvas();
+                }
+                pusher.push();
             }
-
-            // Update UI
-            synchronized (GameOfLife.this) {
-                refreshCanvas();
-            }
-
-            // Push the changes
-            pusher.push();
         }
-
     }
 
     private void refreshCanvas() {
