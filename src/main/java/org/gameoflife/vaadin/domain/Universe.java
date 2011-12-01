@@ -81,9 +81,9 @@ public class Universe {
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {
                 if (cells[x][y]) {
-                    output += "█";
+                    output += "#";
                 } else {
-                    output += "░";
+                    output += " ";
                 }
             }
             output += "\n";
